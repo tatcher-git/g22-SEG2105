@@ -16,6 +16,14 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white"
+            android:onClick="back"
+            android:padding="15dp"/>
+
 
     </LinearLayout>
 
@@ -28,10 +36,9 @@
         android:text="LocalLoop App"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="40sp"
-        android:layout_marginTop="50dp"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold|italic" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,20 +47,37 @@
         android:orientation="vertical"
         android:layout_marginTop="200dp">
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_border"
+        android:orientation="vertical"
+        android:layout_marginTop="80dp">
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/textViewWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="100dp"
-            android:text="Welcome !"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold|italic" />
+            android:text="All Users"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <ListView
+            android:id="@+id/listView_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:layout_width="match_parent"
@@ -66,5 +90,6 @@
             android:textAllCaps="true"/>
 
     </LinearLayout>
+
 
 </RelativeLayout>

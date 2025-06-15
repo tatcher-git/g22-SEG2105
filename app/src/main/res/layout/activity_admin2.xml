@@ -16,7 +16,12 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white"
+            android:padding="15dp"/>
     </LinearLayout>
 
 
@@ -38,7 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_border"
         android:orientation="vertical"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="140dp">
 
 
         <TextView
@@ -47,14 +52,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="100dp"
-            android:text="Welcome !"
+            android:padding="70dp"
+            android:text="Welcome Admin !You are logged in as 'admin'. "
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:layout_marginTop="10dp"
             android:textStyle="bold|italic" />
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Manage User Accounts"
+            android:onClick="manageUser"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Manage event categories"
+            android:onClick="manageEvent"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,6 +86,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textAllCaps="true"/>
+
+
 
     </LinearLayout>
 

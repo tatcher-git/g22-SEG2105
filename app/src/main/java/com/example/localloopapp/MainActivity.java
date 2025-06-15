@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference("users");
     }
-    public void register (View view){
-        startActivity(new Intent(MainActivity.this,RegisterActivity.class));
 
+    public void register(View view) {
+        startActivity(new Intent(MainActivity.this, RegisterActivity.class));
     }
 
     public void loginUser(View view) {
@@ -38,20 +38,20 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordField.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Entrez un nom d'utilisateur et un mot de passe", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a username and a password", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Cas admin
+        // Admin case
         if (username.equals("admin") && password.equals("XPI76SZUqyCjVxgnUjm0")) {
-            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+            Intent intent = new Intent(MainActivity.this, AdminActivity.class);
             intent.putExtra("firstName", "Admin");
             intent.putExtra("role", "admin");
             startActivity(intent);
             return;
         }
 
-        // Chercher l'utilisateur par username dans Realtime Database
+        // Look up user by username in Firebase
         dbRef.orderByChild("username").equalTo(username).get().addOnSuccessListener(dataSnapshot -> {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
@@ -60,34 +60,45 @@ public class MainActivity extends AppCompatActivity {
                     String role = userSnap.child("role").getValue(String.class);
 
                     if (email == null || email.isEmpty()) {
-                        Toast.makeText(this, "Aucun email trouvé pour ce nom d'utilisateur", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "No email found for this username", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    // Connexion avec email + mot de passe
+                    // Try login with email + password
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
-                                    intent.putExtra("firstName", firstName);
-                                    intent.putExtra("role", role);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(this, "Mot de passe incorrect", Toast.LENGTH_SHORT).show();
-                                }
+                            .addOnSuccessListener(authResult -> {
+                                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+
+                                userRef.get().addOnSuccessListener(snapshot -> {
+                                    if (snapshot.exists()) {
+                                        Boolean isActive = snapshot.child("active").getValue(Boolean.class);
+                                        if (isActive != null && !isActive) {
+                                            Toast.makeText(MainActivity.this, "This account is disabled", Toast.LENGTH_SHORT).show();
+                                            FirebaseAuth.getInstance().signOut();
+                                        } else {
+                                            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                                            intent.putExtra("firstName", firstName);
+                                            intent.putExtra("role", role);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "User not found in the database", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(e -> {
+                                    Toast.makeText(MainActivity.this, "Error reading active state", Toast.LENGTH_SHORT).show();
+                                });
                             })
                             .addOnFailureListener(e -> {
-                                Toast.makeText(this, "Erreur de connexion: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "Connection error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             });
-                    return;
                 }
             } else {
-                Toast.makeText(this, "Nom d'utilisateur introuvable", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Username not found", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Erreur d'accès à la base: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Database access error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         });
     }
-
 }
