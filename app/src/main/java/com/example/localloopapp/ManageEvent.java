@@ -76,10 +76,10 @@ public class ManageEvent extends AppCompatActivity {
 
         String name = nameField.getText().toString().trim();
         String description = descriptionField.getText().toString().trim();
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
-            return;
-        }
+       // if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+           // Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+          //  return;
+        //}
 
 
         if (name.isEmpty() || description.isEmpty()) {

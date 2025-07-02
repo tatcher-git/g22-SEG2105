@@ -42,13 +42,13 @@
 
 
         <TextView
-            android:id="@+id/textViewWelcome"
+            android:id="@+id/textViewOrganizer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="70dp"
-            android:text="Welcome Admin !You are logged in as 'admin'. "
+            android:text="Welcome  !"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -58,20 +58,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Manage User Accounts"
-            android:onClick="manageUser"
+            android:text="CREATE A NEW EVENT"
+            android:onClick="addEvent"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textAllCaps="true"/>
-        <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Events"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <ListView
+            android:id="@+id/listView_my_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Manage event categories"
-            android:onClick="manageEvent"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textAllCaps="true"/>
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

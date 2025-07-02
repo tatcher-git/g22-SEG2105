@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference("users");
+
     }
 
     public void register(View view) {
@@ -77,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
                                             Toast.makeText(MainActivity.this, "This account is disabled", Toast.LENGTH_SHORT).show();
                                             FirebaseAuth.getInstance().signOut();
                                         } else {
-                                            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                                            Intent intent;
+                                            if (role != null && role.equalsIgnoreCase("organizer")) {
+                                                intent = new Intent(MainActivity.this, OrganizerActivity.class);
+                                            } else {
+                                                intent = new Intent(MainActivity.this, WelcomeActivity.class); // pour participant ou autre
+                                            }
+
                                             intent.putExtra("firstName", firstName);
                                             intent.putExtra("role", role);
                                             startActivity(intent);

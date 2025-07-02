@@ -1,21 +1,18 @@
-# Android Studio & Gradle
-*.iml
+# Android Studio
 .gradle/
+.idea/
+*.iml
 local.properties
-/.idea/
+
+# Build
 /build/
-/captures/
-/.externalNativeBuild/
-/cxx/
-/.DS_Store
-
-# Keystore files (sécurité)
-*.jks
-
-# Log files
-*.log
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
 
 # APKs
 *.apk
-*.ap_
 
+# macOS
+.DS_Store

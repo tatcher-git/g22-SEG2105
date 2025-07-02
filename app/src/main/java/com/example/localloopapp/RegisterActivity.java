@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.HashMap;
+import java.util.Map;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +19,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +60,29 @@ public class RegisterActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 String uid = auth.getCurrentUser().getUid();
-                User newUser = new User(username, firstName, lastName, email, role);
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put("username", username);
+                userMap.put("firstName", firstName);
+                userMap.put("lastName", lastName);
+                userMap.put("email", email);
+                userMap.put("role", role);
+                userMap.put("active", true);
 
-                dbRef.child(uid).setValue(newUser).addOnCompleteListener(dbTask -> {
+
+                dbRef.child(uid).setValue(userMap).addOnCompleteListener(dbTask -> {
                     if (dbTask.isSuccessful()) {
                         Toast.makeText(this, "Compte créé avec succès ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this, WelcomeActivity.class);
+                        Intent intent;
+                        if (role.equals("organizer")) {
+                            intent = new Intent(this, OrganizerActivity.class);
+                        } else {
+                            intent = new Intent(this, WelcomeActivity.class); // Pour participant ou par défaut
+                        }
+
                         intent.putExtra("firstName", firstName);
                         intent.putExtra("role", role);
                         startActivity(intent);
+
                         finish();
                     } else {
                         Toast.makeText(this, "Erreur base de données ", Toast.LENGTH_SHORT).show();
