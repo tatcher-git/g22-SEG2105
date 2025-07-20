@@ -24,4 +24,8 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
 
     }
+    public void search (View view){
+        startActivity(new Intent(WelcomeActivity.this,SearchEvents.class));
+
+    }
 }

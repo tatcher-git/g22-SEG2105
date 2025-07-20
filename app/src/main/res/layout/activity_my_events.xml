@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="back"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:padding="15dp"/>
+
+    <TextView
+        android:id="@+id/titleMyEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Events"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"/>
+
+    <ListView
+        android:id="@+id/listView_my_events"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="LOG OUT"
+        android:onClick="logout"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAllCaps="true"/>
+</LinearLayout>

@@ -59,6 +59,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="70dp"
+            android:text="Search for events"
+            android:onClick="search"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="LOG OUT"
             android:onClick="logout"
             android:textColor="@color/black"
